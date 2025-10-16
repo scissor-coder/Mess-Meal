@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Static Color Meal Entry System</title>
+    <!-- Google Font Inter -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for sleek icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="index-v3.css" />
+    <script defer src="index-v3.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <h1 class="main-heading">
+          <i class="fas fa-database header-icon"></i>
+          Meal Entry System
+        </h1>
+        <!-- <h2 id="yearName" class="year-display"></h2> -->
+      </header>
+
+      <form id="dataEntryForm" class="data-form">
+        <div class="form-group">
+          <label for="name" class="form-label">Select User</label>
+          <div class="custom-select-wrapper">
+            <select id="name" name="name" required class="form-select">
+              <option value="" disabled selected>Select Your Name</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="meal-options-box">
+          <h3 class="meal-box-title">Meal Selection</h3>
+          <div class="form-group">
+            <label for="mealOptions" class="form-label"
+              >Today's Meal (Breakfast)</label
+            >
+            <div class="custom-select-wrapper">
+              <select id="mealOptions" name="meal" required class="form-select">
+                <option value="" disabled selected>Select Meal</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nextDayMealOptions" class="form-label"
+              >Next Day's Meal (Dinner)</label
+            >
+            <div class="custom-select-wrapper">
+              <select
+                id="nextDayMealOptions"
+                name="nextDay"
+                required
+                class="form-select"
+              >
+                <option value="" disabled selected>Select Meal</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="submitBtn"
+          class="custom-button submit-button"
+        >
+          <i class="fas fa-check"></i>
+          <span>Submit Entry</span>
+          <span class="spinner-container hidden">
+            <div class="spinner"></div>
+          </span>
+        </button>
+      </form>
+
+      <div class="report-section">
+        <h2 class="report-heading">Daily and Total Reports</h2>
+        <div class="report-buttons-group">
+          <button
+            id="todayReportBtn"
+            class="custom-button report-button button-text"
+          >
+            <span>Today's Daily Entries</span>
+            <span class="spinner-container hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+          <div id="todayReportContainer" class="report-content-container">
+            <h3>Today's Entry List</h3>
+            <div
+              id="todayReportContent"
+              class="report-content scroll-container"
+            >
+              <!-- Report content will be injected here -->
+            </div>
+          </div>
+        </div>
+        <div class="report-buttons-group">
+          <button
+            id="mealReportBtn"
+            class="custom-button report-button report-button-purple button-text"
+          >
+            <span>Total Mess Report</span>
+            <span class="spinner-container hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+          <div id="mealReportContainer" class="report-content-container">
+            <h3>Monthly/Total Meal Report</h3>
+            <div id="mealReportContent" class="report-content scroll-container">
+              <!-- Report content will be injected here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box manager-info-box">
+        <h3 class="manager-info-title">
+          <i class="fas fa-user-tie"></i>
+          Manager Information
+        </h3>
+        <div class="manager-info-details">
+          <p class="manager-info-item">
+            <i class="fas fa-user"></i>
+            <span id="yearName">
+              <!-- Manager Name Will Show here (instead of YearName***) -->
+            </span>
+          </p>
+          <p class="manager-info-item">
+            <i class="fas fa-phone"></i>
+            <span id="noticeText">
+              <!-- Manager Phone/Other info will show here (instead of Notice Txt) -->
+            </span>
+          </p>
+          <p class="manager-info-item" id="userIdDisplay">
+            <i class="fas fa-id-card-clip"></i>
+            <span>User ID: Not available (Using dummy data)</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="messageBox" class="message-box">
+      <p id="messageText"></p>
+    </div>
+  </body>
+</html>
