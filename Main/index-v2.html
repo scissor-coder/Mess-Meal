@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ডেটা এন্ট্রি ফর্ম - আবিদ</title>
+    <!-- Google Font for Bangla -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- Custom CSS Styles (No Tailwind) --- */
+      :root {
+        --primary-color: #00509d;
+        --primary-dark: #00407e;
+        --primary-light: #006eb3;
+        --secondary-bg: #f7f8fa;
+        --text-dark: #2c3e50; /* Darker text for better contrast */
+        --text-light: #f9f9f9;
+        --shadow-elevation: 0 15px 40px rgba(0, 80, 157, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05); /* Layered Shadow */
+        --border-radius-large: 16px;
+        --transition-speed: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --focus-ring: 0 0 0 4px rgba(0, 80, 157, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Hind Siliguri", sans-serif;
+        background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* Soft gradient background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem 1rem;
+        line-height: 1.6;
+      }
+
+      /* Main Card Container */
+      .app-container {
+        background-color: #ffffff;
+        border-radius: var(--border-radius-large);
+        box-shadow: var(--shadow-elevation);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+      }
+
+      /* Header */
+      .app-header {
+        text-align: center;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 1.5rem;
+        margin-bottom: -1rem;
+      }
+
+      .main-heading {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
+      }
+
+      .year-display {
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        font-weight: 400;
+      }
+      
+      .header-icon {
+        color: var(--primary-light);
+        width: 36px;
+        height: 36px;
+        vertical-align: middle;
+        margin-right: 8px;
+        filter: drop-shadow(0 2px 2px rgba(0, 80, 157, 0.1));
+      }
+
+      /* Form Grouping and Inputs */
+      .data-form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 1.05rem;
+      }
+
+      .form-select {
+        width: 100%;
+        padding: 0.85rem 1.25rem;
+        border: 2px solid #e0e6ed;
+        border-radius: 10px;
+        font-size: 1rem;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /* Custom Arrow SVG (Darker) */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%232c3e50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 18px;
+      }
+
+      .form-select:focus {
+        border-color: var(--primary-light);
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
+
+      .meal-options-box {
+        background: linear-gradient(180deg, #f0f7ff 0%, #e8f2ff 100%); /* Light blue gradient box */
+        padding: 2rem;
+        border-radius: 14px;
+        border: 1px solid #cce5ff;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .meal-box-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Buttons */
+      .custom-button {
+        padding: 0.85rem 1.5rem;
+        border-radius: 10px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all var(--transition-speed);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+      }
+
+      .submit-button {
+        background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        color: var(--text-light);
+        box-shadow: 0 8px 20px rgba(0, 80, 157, 0.3);
+      }
+
+      .submit-button:hover:not(:disabled) {
+        background: linear-gradient(90deg, var(--primary-light) 0%, #00509d 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 80, 157, 0.45);
+      }
+      
+      .submit-button:active:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0, 80, 157, 0.3);
+      }
+
+      .submit-button:disabled,
+      .report-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Report Section */
+      .report-section {
+        border-top: 1px dashed #e0e6ed;
+        padding-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .report-heading {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        text-align: center;
+      }
+
+      .report-buttons-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      /* Report Button Styles */
+      .report-button {
+        background-color: #38a169; /* Green for distinction */
+        color: var(--text-light);
+        box-shadow: 0 4px 10px rgba(56, 161, 105, 0.3);
+      }
+
+      .report-button-purple {
+        background-color: #8b5cf6;
+        box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+      }
+
+      .report-button:hover:not(:disabled) {
+        background-color: #277b4d;
+        transform: translateY(-2px);
+      }
+      .report-button-purple:hover:not(:disabled) {
+        background-color: #7c3aed;
+        transform: translateY(-2px);
+      }
+      .report-button:active:not(:disabled), .report-button-purple:active:not(:disabled) {
+        transform: translateY(-0.5px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* Report Content Container (Accordion Style) */
+      .report-content-container {
+        background-color: var(--secondary-bg);
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e0eafc;
+        display: none; /* Controlled by JS */
+        margin-top: -0.5rem;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        overflow: hidden;
+      }
+      
+      .report-content-container.show {
+        display: block;
+        max-height: 400px; /* Max height for transition effect */
+      }
+
+      .report-content-container h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.2rem;
+        text-align: center;
+        border-bottom: 1px dashed #cce5ff;
+        padding-bottom: 0.5rem;
+      }
+
+      .report-content {
+        max-height: 250px;
+        overflow-y: auto;
+        padding-right: 5px;
+      }
+
+      /* Table Styles */
+      .report-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px; /* Spacing between rows */
+        font-size: 0.95rem;
+      }
+
+      .report-table-header {
+        background-color: var(--primary-color);
+        color: var(--text-light);
+        position: sticky;
+        top: 0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .report-table-header th {
+        padding: 0.8rem 0.6rem;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .report-table-row {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        transition: background-color 0.15s ease;
+      }
+
+      .report-table-row:hover {
+        background-color: #f0f3f5;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+      }
+
+      .report-table-cell {
+        padding: 0.8rem 0.6rem;
+        color: var(--text-dark);
+      }
+      /* Specific styling for rounded table corners */
+      .report-table-row td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+      .report-table-row td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+
+
+      /* Manager Info & Notice */
+      .info-box {
+        margin-top: 2.5rem;
+        padding: 1.8rem;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid #e0e6ed;
+      }
+
+      .manager-info-box {
+        background-color: #ecf5ff; /* Light blue background */
+        border: 1px solid #cce5ff;
+      }
+
+      .manager-info-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+      }
+
+      .manager-info-item {
+        color: #555;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        margin: 0.5rem 0;
+      }
+      .manager-info-item svg {
+        color: var(--primary-light);
+      }
+
+      .notice-box {
+        background-color: #fff8e6; /* Soft yellow for notice */
+        border: 1px solid #ffe0b2;
+        margin-top: 1.5rem;
+      }
+      .notice-box h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #d39e00; /* Darker yellow/orange */
+        margin-bottom: 0.75rem;
+      }
+      .notice-box p {
+        color: #555;
+      }
+
+      /* Loading and Messages */
+      .spinner-container {
+        display: none;
+      }
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid var(--text-light);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .spinner-container.show {
+        display: inline-block;
+      }
+
+      .message-box {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        background-color: #fff;
+        padding: 1rem 1.8rem;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        display: none;
+        text-align: center;
+        font-weight: 600;
+        animation: slideIn 0.5s ease-out;
+        min-width: 300px;
+      }
+      .message-box.show {
+        display: block;
+      }
+      .message-box-error {
+        border: 2px solid #dc3545;
+        color: #dc3545;
+      }
+      .message-box-success {
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+      @keyframes slideIn {
+        from { opacity: 0; transform: translate(-50%, -50px); }
+        to { opacity: 1; transform: translate(-50%, 0); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 600px) {
+        .app-container {
+          padding: 1.5rem;
+          gap: 2rem;
+        }
+        .main-heading {
+          font-size: 1.75rem;
+        }
+        .year-display {
+          font-size: 0.95rem;
+        }
+        .meal-options-box {
+          padding: 1.5rem;
+        }
+        .report-content {
+          max-height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <h1 class="main-heading">
+          <!-- Icon: Database/Data Entry -->
+          <svg
+            class="header-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          </svg>
+          মিল এন্ট্রি সিস্টেম
+        </h1>
+        <h2 id="yearName" class="year-display"></h2>
+      </header>
+
+      <form id="dataEntryForm" class="data-form">
+        <div class="form-group">
+          <label for="name" class="form-label"
+            >ব্যবহারকারী নির্বাচন</label
+          >
+          <select
+            id="name"
+            name="name"
+            required
+            class="form-select"
+          >
+            <option value="" disabled selected>আপনার নাম বেছে নিন</option>
+          </select>
+        </div>
+
+        <div class="meal-options-box">
+          <h3 class="meal-box-title">
+            খাবার নির্বাচন
+          </h3>
+          <div class="form-group">
+            <label for="mealOptions" class="form-label"
+              >আজকের খাবার (Breakfast)</label
+            >
+            <select
+              id="mealOptions"
+              name="meal"
+              required
+              class="form-select"
+            >
+              <option value="" disabled selected>খাবার বেছে নিন</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              for="nextDayMealOptions"
+              class="form-label"
+              >পরের দিনের খাবার (Dinner)</label
+            >
+            <select
+              id="nextDayMealOptions"
+              name="nextDay"
+              required
+              class="form-select"
+            >
+              <option value="" disabled selected>খাবার বেছে নিন</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="submitBtn"
+          class="custom-button submit-button"
+        >
+          <!-- Icon: Checkmark/Submit -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>এন্ট্রি জমা দিন</span>
+          <span class="spinner-container hidden">
+            <div class="spinner"></div>
+          </span>
+        </button>
+      </form>
+
+      <div class="report-section">
+        <h2 class="report-heading">
+          দৈনিক ও মোট রিপোর্ট
+        </h2>
+        <div class="report-buttons-group">
+          <button
+            id="todayReportBtn"
+            class="custom-button report-button"
+          >
+            <span class="button-text">আজকের দৈনিক এন্ট্রি</span>
+            <span class="spinner-container hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+          <div
+            id="todayReportContainer"
+            class="report-content-container"
+          >
+            <h3>
+              আজকের এন্ট্রি তালিকা
+            </h3>
+            <div
+              id="todayReportContent"
+              class="report-content scroll-container"
+            >
+              </div>
+          </div>
+        </div>
+        <div class="report-buttons-group">
+          <button
+            id="mealReportBtn"
+            class="custom-button report-button report-button-purple"
+          >
+            <span class="button-text">মোট মেস রিপোর্ট</span>
+            <span class="spinner-container hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+          <div
+            id="mealReportContainer"
+            class="report-content-container"
+          >
+            <h3>
+              খাবারের মাসিক/মোট রিপোর্ট
+            </h3>
+            <div id="mealReportContent" class="report-content scroll-container">
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="info-box manager-info-box"
+      >
+        <h3 class="manager-info-title">
+            <!-- Icon: Manager/Badge -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="vertical-align: middle; margin-right: 5px;"
+            >
+              <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+              <path d="M12 13c-2.4 0-5.7 1.2-8 3.5 0 0 0 4.5 8 4.5s8-4.5 8-4.5c-2.3-2.3-5.6-3.5-8-3.5z" />
+            </svg>
+            ম্যানেজারের তথ্য
+        </h3>
+        <div class="manager-info-details">
+          <p class="manager-info-item">
+            <!-- Icon: User -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+            </svg>
+            <span>নাম: আবিদ আল জামী</span>
+          </p>
+          <p class="manager-info-item">
+            <!-- Icon: Phone -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            <span>+88019 2555 6787</span>
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="info-box notice-box"
+      >
+        <h4>গুরুত্বপূর্ণ নোটিশ</h4>
+        <p id="noticeText"></p>
+      </div>
+    </div>
+    
+    <div id="messageBox" class="message-box">
+      <p id="messageText"></p>
+    </div>
+    
+    <script>
+      // NOTE: This URL must be replaced with your deployed Google Apps Script Web App URL
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbytTjLwBjsF02oCylEpS279TVCw4pxmRg_6xygzb9jClirQHwJMBZW-HfLe1fD5QOh5/exec";
+      const form = document.getElementById("dataEntryForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const todayReportBtn = document.getElementById("todayReportBtn");
+      const mealReportBtn = document.getElementById("mealReportBtn");
+      const todayReportContainer = document.getElementById(
+        "todayReportContainer"
+      );
+      const todayReportContent = document.getElementById("todayReportContent");
+      const mealReportContainer = document.getElementById(
+        "mealReportContainer"
+      );
+      const mealReportContent = document.getElementById("mealReportContent");
+      const messageBox = document.getElementById("messageBox");
+      const messageText = document.getElementById("messageText");
+      const nameSelect = document.getElementById("name");
+      const mealOptionsSelect = document.getElementById("mealOptions");
+      const nextDayMealOptionsSelect =
+        document.getElementById("nextDayMealOptions");
+      const yearNameElement = document.getElementById("yearName");
+      const noticeTextElement = document.getElementById("noticeText");
+      
+      // Helper function to handle the hidden class logic for containers
+      // This is necessary because some execution environments (like Canvas) modify classList.toggle for 'hidden'
+      function toggleReportContainer(container, show) {
+        if (show) {
+            container.style.display = 'block';
+            container.classList.add('show');
+        } else {
+            container.style.display = 'none';
+            container.classList.remove('show');
+        }
+      }
+
+      // Function to show a message
+      function showMessage(text, isError = false) {
+        messageText.textContent = text;
+        messageBox.className =
+          "message-box show " +
+          (isError ? "message-box-error" : "message-box-success");
+        setTimeout(() => {
+          messageBox.classList.remove("show");
+        }, 3500); // Increased timeout for better readability
+      }
+      
+      // Function to set loading state for buttons
+      function setButtonLoadingState(button, isLoading) {
+        const buttonText = button.querySelector(".button-text") || button.querySelector("span:not(.spinner-container)");
+        const spinnerContainer = button.querySelector(".spinner-container");
+        
+        if (buttonText) {
+          buttonText.style.display = isLoading ? 'none' : 'inline';
+        }
+        spinnerContainer.style.display = isLoading ? 'inline-block' : 'none';
+        
+        button.disabled = isLoading;
+      }
+      
+      // Function to load initial data (names, meal options, year, and notice)
+      async function loadInitialData() {
+        try {
+          const response = await fetch(`${SCRIPT_URL}?action=getInitialData`);
+          const result = await response.json();
+          console.log("Initial Data Response:", result); 
+          if (result.status === "success") {
+            // Populate names dropdown
+            nameSelect.innerHTML =
+              '<option value="" disabled selected>আপনার নাম বেছে নিন</option>';
+            if (result.names) {
+              result.names.forEach((name) => {
+                const option = document.createElement("option");
+                option.value = name;
+                option.textContent = name;
+                nameSelect.appendChild(option);
+              });
+            }
+            // Populate today's meal dropdown
+            mealOptionsSelect.innerHTML =
+              '<option value="" disabled selected>খাবার বেছে নিন</option>';
+            if (result.meals) {
+              result.meals.forEach((meal) => {
+                const option = document.createElement("option");
+                option.value = meal;
+                option.textContent = meal;
+                mealOptionsSelect.appendChild(option);
+              });
+            }
+            // Populate next day's meal dropdown
+            nextDayMealOptionsSelect.innerHTML =
+              '<option value="" disabled selected>খাবার বেছে নিন</option>';
+            if (result.nextDayMeals) {
+              result.nextDayMeals.forEach((meal) => {
+                const option = document.createElement("option");
+                option.value = meal;
+                option.textContent = meal;
+                nextDayMealOptionsSelect.appendChild(option);
+              });
+            }
+
+            // Populate year and notice text
+            if (result.yearName) {
+              yearNameElement.textContent = result.yearName;
+            }
+            if (result.noticeText) {
+              noticeTextElement.textContent = result.noticeText;
+            }
+          } else {
+            showMessage(
+              "কনফিগারেশন ডেটা লোড করতে ব্যর্থ। অনুগ্রহ করে শীটটি পরীক্ষা করুন।",
+              true
+            );
+            console.error("Initial data loading failed:", result.message);
+          }
+        } catch (error) {
+          showMessage(
+            "একটি ত্রুটি ঘটেছে। দয়া করে ইন্টারনেট সংযোগ পরীক্ষা করুন।",
+            true
+          );
+          console.error("Error during initial data loading:", error);
+        }
+      }
+      // Load data on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        loadInitialData();
+      });
+      
+      // Form submission handler
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        setButtonLoadingState(submitBtn, true);
+        showMessage("তথ্য জমা দেওয়া হচ্ছে...", false);
+        
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
+        }
+        
+        try {
+          // Implementing basic exponential backoff for resilience
+          const maxRetries = 3;
+          let response;
+          for (let i = 0; i < maxRetries; i++) {
+              try {
+                  response = await fetch(SCRIPT_URL, {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                      },
+                      body: new URLSearchParams(data).toString(),
+                  });
+                  if (response.ok) break; 
+                  if (i < maxRetries - 1) {
+                      await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                  }
+              } catch (fetchError) {
+                  if (i < maxRetries - 1) {
+                      await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                  } else {
+                      throw fetchError; 
+                  }
+              }
+          }
+
+          if (!response || !response.ok) {
+              throw new Error("API call failed after retries.");
+          }
+
+          const result = await response.json();
+          console.log("Submission Response:", result); 
+          
+          if (result.status === "success") {
+            showMessage("তথ্য সফলভাবে জমা হয়েছে!", false);
+            form.reset();
+            await loadInitialData(); 
+          } else {
+            showMessage(
+              "তথ্য জমা দিতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
+              true
+            );
+            console.error("Submission failed:", result.message);
+          }
+        } catch (error) {
+          showMessage(
+            "একটি ত্রুটি ঘটেছে। দয়া করে ইন্টারনেট সংযোগ পরীক্ষা করুন।",
+            true
+          );
+          console.error("Error during submission:", error);
+        } finally {
+          setButtonLoadingState(submitBtn, false);
+        }
+      });
+      
+      // Function to render report data in a specific container
+      function renderReport(data, reportContainer, reportContent, reportType) {
+        reportContent.innerHTML = "";
+        if (data.length === 0) {
+          reportContent.innerHTML = `<p style="text-align:center; color:#7f8c8d; padding:1rem;">কোন এন্ট্রি পাওয়া যায়নি।</p>`;
+          toggleReportContainer(reportContainer, true);
+          return;
+        }
+
+        const table = document.createElement("table");
+        table.className = "report-table"; 
+
+        // Determine headers based on report type
+        let headers;
+        let numColumns;
+        if (reportType === "today") {
+          headers = ["ব্যবহারকারী", "আজকের খাবার", "পরের দিনের খাবার"];
+          numColumns = 3;
+        } else {
+          // 'meal' report
+          headers = ["NameOfB", "Given Taka", "Total Meal", "Enough"];
+          numColumns = 4;
+        }
+
+        // Table Header
+        const thead = document.createElement("thead");
+        thead.className = "report-table-header"; 
+        const headerRow = thead.insertRow();
+        headers.forEach((headerText) => {
+          const th = document.createElement("th");
+          th.textContent = headerText;
+          headerRow.appendChild(th);
+        });
+        table.appendChild(thead);
+
+        // Table Body
+        const tbody = document.createElement("tbody");
+        data.forEach((row, rowIndex) => {
+          const tr = tbody.insertRow();
+          tr.className = "report-table-row";
+          for (let i = 0; i < numColumns; i++) {
+            const td = tr.insertCell();
+            let cellData = row[i];
+            td.textContent = cellData;
+            td.className = "report-table-cell";
+          }
+        });
+        table.appendChild(tbody);
+        reportContent.appendChild(table);
+        toggleReportContainer(reportContainer, true);
+      }
+      
+      // Fetch today's entries
+      todayReportBtn.addEventListener("click", async () => {
+        const button = todayReportBtn;
+        
+        // Toggle logic: If visible, hide it.
+        const isVisible = todayReportContainer.style.display !== 'none' && todayReportContainer.style.display !== '';
+        if (isVisible) {
+           toggleReportContainer(todayReportContainer, false);
+           showMessage("আজকের এন্ট্রি রিপোর্ট বন্ধ করা হয়েছে।", false);
+           return;
+        }
+
+        setButtonLoadingState(button, true);
+        toggleReportContainer(mealReportContainer, false); // Hide other report
+        showMessage("আজকের এন্ট্রি লোড হচ্ছে...", false);
+        
+        try {
+          const response = await fetch(`${SCRIPT_URL}?action=getTodayEntries`);
+          const data = await response.json();
+          console.log("Today's Report Data:", data); 
+          
+          if (data.status === "success") {
+            renderReport(
+              data.data,
+              todayReportContainer,
+              todayReportContent,
+              "today"
+            );
+            showMessage("আজকের এন্ট্রি সফলভাবে লোড হয়েছে।", false);
+          } else {
+            renderReport([], todayReportContainer, todayReportContent, "today"); // Show empty message
+            showMessage(
+              "ডেটা লোড করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
+              true
+            );
+            console.error("Data retrieval failed:", data.message);
+          }
+        } catch (error) {
+          showMessage(
+            "একটি ত্রুটি ঘটেছে। দয়া করে ইন্টারনেট সংযোগ পরীক্ষা করুন।",
+            true
+          );
+          console.error("Error during data retrieval:", error);
+        } finally {
+          setButtonLoadingState(button, false);
+        }
+      });
+      
+      // Fetch meal reports
+      mealReportBtn.addEventListener("click", async () => {
+        const button = mealReportBtn;
+        
+        // Toggle logic: If visible, hide it.
+        const isVisible = mealReportContainer.style.display !== 'none' && mealReportContainer.style.display !== '';
+        if (isVisible) {
+           toggleReportContainer(mealReportContainer, false);
+           showMessage("খাবারের রিপোর্ট বন্ধ করা হয়েছে।", false);
+           return;
+        }
+
+        setButtonLoadingState(button, true);
+        toggleReportContainer(todayReportContainer, false); // Hide other report
+        showMessage("খাবারের রিপোর্ট লোড হচ্ছে...", false);
+        
+        try {
+          const response = await fetch(`${SCRIPT_URL}?action=getMealReports`);
+          const data = await response.json();
+          console.log("Meal Report Data:", data); 
+          
+          if (data.status === "success") {
+            renderReport(
+              data.data,
+              mealReportContainer,
+              mealReportContent,
+              "meal"
+            );
+            showMessage("খাবারের রিপোর্ট সফলভাবে লোড হয়েছে।", false);
+          } else {
+            renderReport([], mealReportContainer, mealReportContent, "meal"); // Show empty message
+            showMessage(
+              "ডেটা লোড করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
+              true
+            );
+            console.error("Data retrieval failed:", data.message);
+          }
+        } catch (error) {
+          showMessage(
+            "একটি ত্রুটি ঘটেছে। দয়া করে ইন্টারনেট সংযোগ পরীক্ষা করুন।",
+            true
+          );
+          console.error("Error during data retrieval:", error);
+        } finally {
+          setButtonLoadingState(button, false);
+        }
+      });
+    </script>
+  </body>
+</html>
